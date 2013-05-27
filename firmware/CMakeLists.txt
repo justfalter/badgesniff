@@ -27,6 +27,7 @@ SET(BADGE_HZ 8000000)
 SET(BADGE_BAUD 38400)
 SET(LFUSE "0xE2")
 SET(HFUSE "0xD7")
+SET(EFUSE "0xF4")
 
 set(MCU_TARGET atmega128rfa1)
 set(AVRDUDE_TARGET atmega128rfa1)
@@ -69,12 +70,19 @@ add_custom_command(
     COMMENT "Convert ELF to IntelHEX")
 
 add_custom_target(
+  fuses
+  COMMAND ${AVRDUDE} -p ${AVRDUDE_TARGET} -c ${AVR_PROGRAMMER} ${AVRDUDE_OPTIONS} -U lfuse:w:${LFUSE}:m -U hfuse:w:${HFUSE}:m -U efuse:w:${EFUSE}:m
+  COMMENT "Configures fuses"
+)
+
+add_custom_target(
   install
-  COMMAND ${AVRDUDE} -p ${AVRDUDE_TARGET} -c ${AVR_PROGRAMMER} ${AVRDUDE_OPTIONS} -U flash:w:${INTEL_HEX_FILE} -U lfuse:w:${LFUSE}:m -U hfuse:w:${HFUSE}:m
+  COMMAND ${AVRDUDE} -p ${AVRDUDE_TARGET} -c ${AVR_PROGRAMMER} ${AVRDUDE_OPTIONS} -U flash:w:${INTEL_HEX_FILE}
   COMMAND ${CMAKE_COMMAND} -E echo "================================================================"
   COMMAND ${CMAKE_COMMAND} -E echo "NOTE: Serial interface on badge configured to run at ${BADGE_BAUD} baud!"
   COMMAND ${CMAKE_COMMAND} -E echo "================================================================"
   DEPENDS ${INTEL_HEX_FILE}
+  DEPENDS fuses
   COMMENT "Installs the badgesniff flash to the badge"
 )
 

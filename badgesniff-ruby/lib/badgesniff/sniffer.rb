@@ -15,8 +15,9 @@ module BadgeSniff
     end
 
     def init_processing_thread
+      @running = true
       Thread.new do
-        loop do
+        while @running == true
           # Process a response, if any.
           msg, param = @badgeio.get_badge_msg()
           unless msg.nil?
