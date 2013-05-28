@@ -37,7 +37,6 @@ Any AVR ISP programmer will do, however it's probably easiest to use a buspirate
 - On my system, my buspirate shows up as /dev/ttyUSB0
 
 ## Dependencies
-
 ```
 sudo apt-get install build-essential cmake avrdude avr-libc gcc-avr
 ```
@@ -47,7 +46,6 @@ sudo apt-get install build-essential cmake avrdude avr-libc gcc-avr
 Based on [this doc](http://dangerousprototypes.com/docs/Bus_Pirate_AVR_Programming#AVR_ISP_Header)
 
 Hook the buspirate up to the ICSP header on the badge. 
-
 ```
 Buspirate ->  Badge
 -------------------
@@ -62,26 +60,22 @@ CLK       ->  SCK
 ## Flashing the badge with badgesniff
 
 - Create the build directory 
-
 ```
 mkdir firmware/build
 cd firmware/build
 ```
 
 - Setup the build. Obviously, replace /dev/ttyUSB0 with your device.
-
 ```
 cmake -DCMAKE_TOOLCHAIN_FILE=../avr-toolchain.cmake -DAVR_PROGRAMMER=buspirate -DAVRDUDE_OPTIONS="-P/dev/ttyUSB0" ../
 ```
 
 - Build the flash
-
 ```
 make
 ```
 
 - Flash the badge. This part can take awhile with the buspirate, as it isn't the speediest AVR programmer.
-
 ```
 make install
 ```
@@ -89,22 +83,18 @@ make install
 ## badgesniff-ruby dependencies
 
 - Install ruby
-
 ```sudo apt-get install ruby1.9.3```
 
 - Install bundler
-
 ```sudo gem1.9.3 install bundler```
 
 - Install deps
-
 ```
 cd badgesniff-ruby
 bundle install --path .bundle
 ```
 
 ## Hook the buspirate up in serial for serial mode.
-
 ```
 Buspirate ->  Badge
 -------------------
@@ -121,8 +111,7 @@ GND       ->  GND
 bundle exec bin/badgesniff.rb -p /dev/ttyUSB0 -w out.pcap
 ```
 
-- You should see something like:
-
+- You should see something like: 
 ```
 channel_next      - go to next channel
 channel_prev      - go to previous channel
@@ -130,7 +119,6 @@ channel_show      - show current channel
 channel_set(NUM)  - Set the chanenl to NUM
 channel_scan(NUM) - Scan each channel. Dwell on channel for NUM seconds (default 0.1)
 help              - this text
-
 Press <enter> to switch between monitor / console mode
 Packets captured: 8
 ```
@@ -138,11 +126,11 @@ Packets captured: 8
 - Packets immediately begin saving into out.pcap
 
 - Press enter and you'll see the console.
-
-```(ch: 25) (pkts: 31) > ```
+```
+(ch: 25) (pkts: 31) > 
+```
 
 - You can initiate a scan of all channels, dwelling on each one for 1 second:
-
 ```
 (ch: 25) (pkts: 31) > channel_scan 1
 .....................done
@@ -152,7 +140,6 @@ Packets captured: 8
 - In the above case, we captured ten packets on channel 25. 
 
 - Set the channel to 25:
-
 ```
 (ch: 15) (pkts: 1798) > channel_set 25
 Setting channel to 25... 25
