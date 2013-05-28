@@ -7,11 +7,15 @@ module BadgeSniff
       @badgeio = badgeio
       @pcap = pcap
       @count = 0
-      @channel_counts = Hash.new {|h,k| h[k] = 0}
-      @processing_thread = init_processing_thread()
+      @running = false
       @cmd_queue = SizedQueue.new(1)
       @response_queue = Queue.new
+      @channel_counts = Hash.new {|h,k| h[k] = 0}
+      @processing_thread = init_processing_thread()
       @last_channel = -1
+      at_exit do
+        self.stop()
+      end
     end
 
     def init_processing_thread

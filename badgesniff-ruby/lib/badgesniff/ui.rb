@@ -17,7 +17,7 @@ module BadgeSniff
 
     def __run
       Signal.trap("INT") do
-        self.stop()
+        exit
       end
       help()
       monitor()
@@ -73,13 +73,6 @@ module BadgeSniff
       pp @sniffer.channel_counts
     end
 
-    def stop
-      puts "stopping the sniffer"
-      @sniffer.stop()
-      exit
-      nil
-    end
-
     def monitor
       loop do
         # Adds a bit of a delay, as well as checks to see if we should bounce.
@@ -94,7 +87,7 @@ module BadgeSniff
       puts "   channel_show      - show current channel"
       puts "   channel_set(NUM)  - Set the chanenl to NUM"
       puts "   channel_scan(NUM) - Scan each channel. Dwell on channel for NUM seconds (default 0.1)"
-      puts "   stop              - stop sniffing and exit"
+      puts "   quit              - stop sniffing and exit"
       puts "   help              - this text"
       puts ""
       puts " Press <enter> to switch between monitor / console mode"
