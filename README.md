@@ -4,6 +4,8 @@ badgesniff allows you to leverage the 802.15.4 radio on the Thotcon 0x4 badge.
 There are two components to this project:
 - firmware that will put the badge into 'sniffer' mode. 
 - badgesniff-ruby - an application that interfaces with the badge, saving captured packets to a pcap or pcapng file.
+- You can open up the pcap w/ Wireshark while badgesniff is running.
+- Exciting!
 
 ## Hardware required
 
