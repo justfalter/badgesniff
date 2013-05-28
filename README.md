@@ -9,6 +9,10 @@ There are two components to this project:
 
 ## Hardware required
 
+#### REMOVE THE BATTERY BEFORE DOING ANY OF THIS STUFF
+
+Seriously. You don't want exploding batteries, or chips. One power-source at a time!
+
 #### Serial TTL interface
 I used a buspirate for this, but any FTDI-based USB-TTL Serial interface will do.
 
@@ -82,11 +86,7 @@ make
 sudo make install
 ```
 
-- Install deps
-```
-cd badgesniff-ruby
-bundle install --path .bundle
-```
+- Your badge is now programmed with the badgesniff flash image! If you hook directly up to the serial interface on the badge (baud at 38400), you will now be able to interact directly with the sniffer (type '?' for help). However, I make all of this easier for you with badgesniff-ruby, below! 
 
 ## Hook the buspirate up in serial for serial mode.
 ```
@@ -99,6 +99,12 @@ GND       ->  GND
 ```
 
 ## Running badgesniff-ruby
+
+- Install deps
+```
+cd badgesniff-ruby
+bundle install --path .bundle
+```
 
 - Start up badgesniff. Needs to be run as root.
 ```
@@ -142,10 +148,11 @@ Setting channel to 25... 25
 
 - type 'quit' or hit ctrl-c to exit.
 
+# Restoring the badge to its original Thotcon 0x4 behavior
 
-
-
-
-
-
-
+- Hook the badge up for AVR ISP programming mode. 
+- Go back into the build directory for the flash image
+- The following command will restore the original flash image and fuse settings for the chip. 
+```
+sudo make restore_thotcon_flash
+```
