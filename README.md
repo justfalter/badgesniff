@@ -77,7 +77,7 @@ make
 
 - Flash the badge. This part can take awhile with the buspirate, as it isn't the speediest AVR programmer.
 ```
-make install
+sudo make install
 ```
 
 ## badgesniff-ruby dependencies
@@ -106,9 +106,9 @@ GND       ->  GND
 
 ## Running badgesniff-ruby
 
-- Start up badgesniff
+- Start up badgesniff. Needs to be run as root.
 ```
-bundle exec bin/badgesniff.rb -p /dev/ttyUSB0 -w out.pcap
+sudo bundle exec bin/badgesniff.rb -p /dev/ttyUSB0 -w out.pcap
 ```
 
 - You should see something like: 
