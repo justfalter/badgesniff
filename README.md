@@ -40,9 +40,9 @@ Any AVR ISP programmer will do, however it's probably easiest to use a buspirate
 
 ## Dependencies
 ```
-sudo apt-get install build-essential cmake avrdude avr-libc gcc-avr
+sudo apt-get install build-essential cmake avrdude avr-libc gcc-avr ruby1.9.3
+sudo gem1.9.3 install bundler
 ```
-
 
 ## Hook buspirate up to badge for AVR ISP programming
 Based on [this doc](http://dangerousprototypes.com/docs/Bus_Pirate_AVR_Programming#AVR_ISP_Header)
@@ -81,14 +81,6 @@ make
 ```
 sudo make install
 ```
-
-## badgesniff-ruby dependencies
-
-- Install ruby
-```sudo apt-get install ruby1.9.3```
-
-- Install bundler
-```sudo gem1.9.3 install bundler```
 
 - Install deps
 ```
